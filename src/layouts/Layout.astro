@@ -14,14 +14,16 @@ interface Props {
 const {
   title,
   description,
-  image = '/favicon.svg',
+  image = 'covers/default-og.png',
   type = 'website',
 } = Astro.props;
 
-const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://blog.neomindflow.cloud';
 const base = import.meta.env.BASE_URL;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? siteUrl).toString();
-const ogImage = new URL(base + image.replace(/^\//, ''), Astro.site ?? siteUrl).toString();
+const site = Astro.site ?? new URL('https://blog.neomindflow.cloud');
+const canonical = new URL(Astro.url.pathname, site).toString();
+const ogImage = /^https?:\/\//.test(image)
+  ? image
+  : new URL(base + image.replace(/^\//, ''), site).toString();
 ---
 
 <!doctype html>
@@ -42,7 +44,12 @@ const ogImage = new URL(base + image.replace(/^\//, ''), Astro.site ?? siteUrl).
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+
+    <!-- Icons -->
+    <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+    <link rel="icon" href={`${base}favicon-32.png`} sizes="32x32" type="image/png" />
+    <link rel="icon" href={`${base}favicon-16.png`} sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href={`${base}apple-touch-icon.png`} />
 
     <!-- Open Graph -->
     <meta property="og:type" content={type} />
@@ -50,7 +57,12 @@ const ogImage = new URL(base + image.replace(/^\//, ''), Astro.site ?? siteUrl).
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    <meta property="og:site_name" content="Neo Mind Flow" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

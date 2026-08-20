@@ -13,9 +13,9 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 
-const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://blog.neomindflow.cloud';
 const base = import.meta.env.BASE_URL;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? siteUrl).toString();
+const site = Astro.site ?? new URL('https://blog.neomindflow.cloud');
+const canonical = new URL(Astro.url.pathname, site).toString();
 
 const words = post.body?.trim().split(/\s+/).length ?? 0;
 const readingTime = Math.max(1, Math.round(words / 200));
@@ -26,9 +26,15 @@ const related = (await getCollection('blog', ({ data }) => !data.draft))
   .slice(0, 3);
 
 const slug = (id: string) => id.replace(/^.*\//, '').replace(/\.(md|mdx)$/, '');
+const postSlug = slug(post.id);
 ---
 
-<Layout title={`${post.data.title} — Neo Mind Flow`} description={post.data.description} type="article">
+<Layout
+  title={`${post.data.title} — Neo Mind Flow`}
+  description={post.data.description}
+  image={post.data.image ?? `covers/${postSlug}-og.png`}
+  type="article"
+>
   <article class="container post">
     <header class="post-header">
       {
@@ -51,14 +57,14 @@ const slug = (id: string) => id.replace(/^.*\//, '').replace(/\.(md|mdx)$/, '');
       </div>
     </header>
 
-    <div class="prose">
-      <Content />
-    </div>
-
     <aside class="affiliate-note">
       <strong>Reader-supported.</strong> Some links in this article are affiliate links —
       if you buy through them, we may earn a commission at no extra cost to you.
     </aside>
+
+    <div class="prose">
+      <Content />
+    </div>
 
     {
       related.length > 0 && (
@@ -172,7 +178,7 @@ const slug = (id: string) => id.replace(/^.*\//, '').replace(/\.(md|mdx)$/, '');
   }
   .affiliate-note {
     max-width: var(--measure);
-    margin: 3rem auto 0;
+    margin: 0 auto 2.5rem;
     padding: 1.1rem 1.35rem;
     background: var(--color-bg-subtle);
     border: 1px solid var(--color-border);

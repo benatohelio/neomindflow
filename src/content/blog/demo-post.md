@@ -2,6 +2,7 @@
 title: "The 7 Best Self-Help Books That Actually Change How You Think"
 description: "A shortlist of books that earn their reputation — plus who each one is really for."
 pubDate: 2026-08-18
+draft: true
 tags: ["books", "self-improvement"]
 ---
 

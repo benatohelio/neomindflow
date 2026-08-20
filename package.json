@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/generate-covers.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
@@ -13,5 +14,9 @@
     "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "^3.4.0",
     "astro": "^5.7.0"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "satori": "^0.29.1"
   }
 }

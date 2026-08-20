@@ -10,6 +10,12 @@ const { post, featured = false } = Astro.props;
 const slug = post.id.replace(/^.*\//, '').replace(/\.(md|mdx)$/, '');
 const base = import.meta.env.BASE_URL;
 
+const img = post.data.image
+  ? (/^https?:\/\//.test(post.data.image)
+      ? post.data.image
+      : base + post.data.image.replace(/^\//, ''))
+  : null;
+
 const words = post.body?.trim().split(/\s+/).length ?? 0;
 const readingTime = Math.max(1, Math.round(words / 200));
 ---
@@ -17,8 +23,14 @@ const readingTime = Math.max(1, Math.round(words / 200));
 <a class={`post-card ${featured ? 'post-card--featured' : ''}`} href={`${base}blog/${slug}/`}>
   <article>
     {
-      featured && post.data.image && (
-        <img class="post-card-img" src={post.data.image} alt="" loading="lazy" />
+      img && (
+        <img
+          class="post-card-img"
+          src={img}
+          alt=""
+          loading={featured ? 'eager' : 'lazy'}
+          fetchpriority={featured ? 'high' : 'auto'}
+        />
       )
     }
     {featured && <p class="post-card-eyebrow">Featured</p>}

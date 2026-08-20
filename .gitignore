@@ -9,5 +9,7 @@ npm-debug.log*
 # environment variables
 .env
 .env.production
+# capas geradas no build
+public/covers/
 # macOS
 .DS_Store
