@@ -1,18 +1,25 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { AUTHOR } from '../data/author';
 ---
 
-<Layout title="About — Neo Mind Flow" description="About Neo Mind Flow — a self-improvement and books blog.">
+<Layout title="About — Neo Mind Flow" description="About Neo Mind Flow and its editor, Clara Bennett.">
   <main class="container about">
     <h1 class="about-title">About Neo Mind Flow</h1>
     <p class="lead">
       Neo Mind Flow is a space for practical self-improvement: honest book
       recommendations, clear ideas, and tools to help you grow — one step at a time.
     </p>
-    <p>
-      We read so you can choose better. Every recommendation is grounded in what a
-      book actually delivers, who it's for, and when it's worth your time.
-    </p>
+
+    <section class="author">
+      <div class="author-avatar" aria-hidden="true">{AUTHOR.initials}</div>
+      <div class="author-info">
+        <h2>{AUTHOR.name}</h2>
+        <p class="role">{AUTHOR.role}</p>
+        <p class="bio">{AUTHOR.bio}</p>
+      </div>
+    </section>
+
     <p>
       <a href={import.meta.env.BASE_URL}>← Back home</a>
     </p>
@@ -31,5 +38,49 @@ import Layout from '../layouts/Layout.astro';
   .lead {
     font-size: 1.2rem;
     color: var(--color-text-muted);
+    max-width: var(--measure);
+  }
+  .author {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    padding: 1.75rem;
+    background: var(--color-bg-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    max-width: var(--measure);
+  }
+  .author-avatar {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: var(--color-bg);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .author-info h2 {
+    font-size: 1.3rem;
+    margin: 0 0 0.2rem;
+  }
+  .role {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-primary);
+    margin: 0 0 0.5rem;
+  }
+  .bio {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 0;
   }
 </style>

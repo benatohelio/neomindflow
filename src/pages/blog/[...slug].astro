@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import { AUTHOR } from '../../data/author';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -49,6 +50,8 @@ const postSlug = slug(post.id);
       <h1 class="post-title">{post.data.title}</h1>
       <p class="post-desc">{post.data.description}</p>
       <div class="post-meta">
+        <span>By <a class="post-author" href={`${base}about/`}>{post.data.author}</a></span>
+        <span aria-hidden="true">·</span>
         <time datetime={post.data.pubDate.toISOString()}>
           {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
         </time>
@@ -82,6 +85,14 @@ const postSlug = slug(post.id);
         </nav>
       )
     }
+
+    <aside class="author-box">
+      <div class="author-avatar" aria-hidden="true">{AUTHOR.initials}</div>
+      <div class="author-info">
+        <p class="author-name">{post.data.author}</p>
+        <p class="author-bio">{AUTHOR.bio}</p>
+      </div>
+    </aside>
   </article>
 
   <script type="application/ld+json" set:html={JSON.stringify({
@@ -92,6 +103,7 @@ const postSlug = slug(post.id);
     datePublished: post.data.pubDate.toISOString(),
     dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
     url: canonical,
+    author: { '@type': 'Person', name: post.data.author, url: new URL(base + 'about/', site).toString() },
   })} />
 </Layout>
 
@@ -218,5 +230,48 @@ const postSlug = slug(post.id);
     font-family: var(--font-serif);
     font-weight: 600;
     font-size: 1.05rem;
+  }
+  .post-author {
+    font-family: var(--font-sans);
+    color: var(--color-text);
+    font-weight: 600;
+  }
+  .author-box {
+    max-width: var(--measure);
+    margin: 3rem auto 0;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1.5rem;
+    background: var(--color-bg-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+  }
+  .author-avatar {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: var(--color-bg);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .author-info {
+    font-family: var(--font-sans);
+  }
+  .author-name {
+    margin: 0 0 0.25rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  .author-bio {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--color-text-muted);
   }
 </style>
