@@ -103,7 +103,7 @@ const postSlug = slug(post.id);
     datePublished: post.data.pubDate.toISOString(),
     dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
     url: canonical,
-    author: { '@type': 'Person', name: post.data.author, url: new URL(base + 'about/', site).toString() },
+    author: { '@type': 'Organization', name: post.data.author, url: new URL(base + 'about/', site).toString() },
   })} />
 </Layout>
 
@@ -252,7 +252,7 @@ const postSlug = slug(post.id);
     place-items: center;
     width: 48px;
     height: 48px;
-    border-radius: 50%;
+    border-radius: 12px;
     background: var(--color-primary);
     color: var(--color-bg);
     font-family: var(--font-sans);

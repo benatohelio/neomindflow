@@ -3,12 +3,18 @@ import Layout from '../layouts/Layout.astro';
 import { AUTHOR } from '../data/author';
 ---
 
-<Layout title="About — Neo Mind Flow" description="About Neo Mind Flow and its editor, Clara Bennett.">
+<Layout title="About — Neo Mind Flow" description="About Neo Mind Flow, an independent editorial publication on self-improvement and books.">
   <main class="container about">
     <h1 class="about-title">About Neo Mind Flow</h1>
     <p class="lead">
-      Neo Mind Flow is a space for practical self-improvement: honest book
-      recommendations, clear ideas, and tools to help you grow — one step at a time.
+      Neo Mind Flow is an independent editorial publication covering self-improvement,
+      personal growth, and the books that actually move the needle.
+    </p>
+    <p>
+      We research, compare, and distill the most recommended titles so you can spend
+      less time browsing and more time applying what works. Every recommendation is
+      grounded in what a book actually delivers, who it's for, and when it's worth
+      your time.
     </p>
 
     <section class="author">
@@ -40,6 +46,9 @@ import { AUTHOR } from '../data/author';
     color: var(--color-text-muted);
     max-width: var(--measure);
   }
+  .about p {
+    max-width: var(--measure);
+  }
   .author {
     margin-top: 2.5rem;
     display: flex;
@@ -56,7 +65,7 @@ import { AUTHOR } from '../data/author';
     place-items: center;
     width: 64px;
     height: 64px;
-    border-radius: 50%;
+    border-radius: 12px;
     background: var(--color-primary);
     color: var(--color-bg);
     font-family: var(--font-sans);
