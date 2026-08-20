@@ -1,0 +1,28 @@
+---
+// Analytics: Google Search Console (verificação), GA4 e Microsoft Clarity.
+// Tudo condicional a variáveis de ambiente (ver .env.example).
+// Sem os IDs, o site roda normalmente e nada é injetado.
+
+const gsc = import.meta.env.PUBLIC_GSC_VERIFICATION;
+const ga4 = import.meta.env.PUBLIC_GA4_ID;
+const clarity = import.meta.env.PUBLIC_CLARITY_ID;
+---
+
+{gsc && <meta name="google-site-verification" content={gsc} />}
+
+{ga4 && <script async src={`https://www.googletagmanager.com/gtag/js?id=${ga4}`}></script>}
+
+{ga4 && (
+  <script define:vars={{ ga4 }}>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments)}
+    gtag('js', new Date());
+    gtag('config', ga4);
+  </script>
+)}
+
+{clarity && (
+  <script define:vars={{ clarity }}>
+    (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script",clarity);
+  </script>
+)}

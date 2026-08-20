@@ -1,0 +1,69 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<Layout title="Neo Mind Flow — Self Improvement & Books" description="Practical self-improvement guides, honest book recommendations, and personal growth ideas that actually work.">
+  <header class="hero container">
+    <h1>Neo Mind Flow</h1>
+    <p class="tagline">Self-improvement, book recommendations, and ideas to help you think — and live — a little better.</p>
+  </header>
+
+  <main class="container">
+    <ul class="post-list">
+      {posts.map((post) => (
+        <li>
+          <a href={`/blog/${post.id.replace(/^.*\//, '').replace(/\.(md|mdx)$/, '')}/`}>
+            <h2>{post.data.title}</h2>
+            <p>{post.data.description}</p>
+            <time datetime={post.data.pubDate.toISOString()}>
+              {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+            </time>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </main>
+</Layout>
+
+<style>
+  .hero {
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: 2.6rem;
+    margin-bottom: 0.5rem;
+  }
+  .tagline {
+    color: var(--text-muted);
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .post-list li {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 0;
+  }
+  .post-list h2 {
+    margin: 0 0 0.4rem;
+    font-size: 1.4rem;
+  }
+  .post-list p {
+    margin: 0 0 0.4rem;
+    color: var(--text-muted);
+  }
+  .post-list time {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+</style>
