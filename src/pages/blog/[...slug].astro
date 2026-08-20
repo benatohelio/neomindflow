@@ -12,33 +12,69 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
 const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://blog.neomindflow.cloud';
 const canonical = new URL(Astro.url.pathname, siteUrl).toString();
+
+const words = post.body?.trim().split(/\s+/).length ?? 0;
+const readingTime = Math.max(1, Math.round(words / 200));
+
+const related = (await getCollection('blog', ({ data }) => !data.draft))
+  .filter((p) => p.id !== post.id)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const slug = (id: string) => id.replace(/^.*\//, '').replace(/\.(md|mdx)$/, '');
 ---
 
 <Layout title={`${post.data.title} — Neo Mind Flow`} description={post.data.description} type="article">
   <article class="container post">
-    <header>
-      <h1>{post.data.title}</h1>
-      <p class="meta">
+    <header class="post-header">
+      {
+        post.data.tags.length > 0 && (
+          <div class="post-tags">
+            {post.data.tags.map((tag) => (
+              <a class="post-tag" href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}/`}>{tag}</a>
+            ))}
+          </div>
+        )
+      }
+      <h1 class="post-title">{post.data.title}</h1>
+      <p class="post-desc">{post.data.description}</p>
+      <div class="post-meta">
         <time datetime={post.data.pubDate.toISOString()}>
           {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
         </time>
-        {
-          post.data.tags.length > 0 && (
-            <span class="tags">
-              {post.data.tags.map((tag) => <a class="tag" href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}>{tag}</a>)}
-            </span>
-          )
-        }
-      </p>
+        <span aria-hidden="true">·</span>
+        <span>{readingTime} min read</span>
+      </div>
     </header>
+
     <div class="prose">
       <Content />
     </div>
-    <nav class="back">
-      <a href="/">← Back to all posts</a>
-    </nav>
+
+    <aside class="affiliate-note">
+      <strong>Reader-supported.</strong> Some links in this article are affiliate links —
+      if you buy through them, we may earn a commission at no extra cost to you.
+    </aside>
+
+    {
+      related.length > 0 && (
+        <nav class="related" aria-label="More articles">
+          <h2>Keep reading</h2>
+          <ul>
+            {related.map((p) => (
+              <li>
+                <a href={`/blog/${slug(p.id)}/`}>
+                  <span>{p.data.title}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )
+    }
   </article>
 
   <script type="application/ld+json" set:html={JSON.stringify({
@@ -55,44 +91,109 @@ const canonical = new URL(Astro.url.pathname, siteUrl).toString();
 <style>
   .post {
     padding-top: 3rem;
-    padding-bottom: 4rem;
+    padding-bottom: 2rem;
   }
-  .post h1 {
-    font-size: 2.2rem;
-    margin-bottom: 0.5rem;
+  .post-header {
+    margin-bottom: 2.5rem;
   }
-  .meta {
-    color: var(--text-muted);
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 0.9rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    align-items: center;
-  }
-  .tags {
+  .post-tags {
     display: flex;
     gap: 0.5rem;
+    margin-bottom: 1rem;
   }
-  .tag {
+  .post-tag {
+    font-family: var(--font-sans);
     font-size: 0.8rem;
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    padding: 0.1rem 0.6rem;
+    font-weight: 600;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    padding: 0.2rem 0.7rem;
     border-radius: 999px;
+    text-transform: capitalize;
+  }
+  .post-tag:hover {
+    text-decoration: none;
+    color: var(--color-primary-hover);
+  }
+  .post-title {
+    font-size: clamp(1.9rem, 4.5vw, 2.6rem);
+    letter-spacing: -0.03em;
+    margin-bottom: 0.75rem;
+  }
+  .post-desc {
+    color: var(--color-text-muted);
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
   }
   .prose {
-    margin-top: 2rem;
+    font-size: 1.1rem;
   }
   .prose :global(h2) {
-    margin-top: 2rem;
+    margin-top: 2.25rem;
+    font-size: 1.6rem;
+  }
+  .prose :global(h3) {
+    margin-top: 1.75rem;
+    font-size: 1.3rem;
   }
   .prose :global(p) {
-    margin: 1rem 0;
+    margin: 1.25rem 0;
   }
-  .back {
+  .prose :global(blockquote) {
+    margin: 1.5rem 0;
+    padding: 0.25rem 0 0.25rem 1.25rem;
+    border-left: 3px solid var(--color-primary);
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+  .prose :global(a) {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .affiliate-note {
+    margin-top: 3rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--color-bg-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+  .related {
     margin-top: 3rem;
     padding-top: 1.5rem;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--color-border);
+  }
+  .related h2 {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+  }
+  .related ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .related li {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .related a {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 1rem;
   }
 </style>

@@ -1,0 +1,102 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <span class="logo-mark">N</span>
+      <div>
+        <p class="footer-title">Neo Mind Flow</p>
+        <p class="footer-tag">Think — and live — a little better.</p>
+      </div>
+    </div>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="/">Home</a>
+      <a href="/about/">About</a>
+      <a href="/rss.xml">RSS</a>
+    </nav>
+  </div>
+  <div class="container footer-bottom">
+    <p class="disclaimer">
+      Neo Mind Flow is reader-supported. When you buy through links on our site,
+      we may earn an affiliate commission. This does not affect the price you pay.
+    </p>
+    <p class="copyright">© {year} Neo Mind Flow. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: 4rem;
+    border-top: 1px solid var(--color-border);
+    background: var(--color-bg-subtle);
+    padding: 3rem 0 2rem;
+  }
+  .footer-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .footer-brand {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+  .logo-mark {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    background: var(--gradient);
+    color: #fff;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .footer-title {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    margin: 0;
+    color: var(--color-text);
+  }
+  .footer-tag {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+  .footer-links {
+    display: flex;
+    gap: 1.25rem;
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+  }
+  .footer-links a {
+    color: var(--color-text-muted);
+  }
+  .footer-links a:hover {
+    color: var(--color-text);
+  }
+  .footer-bottom {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .disclaimer {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+  }
+  .copyright {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    font-family: var(--font-sans);
+    margin: 0;
+  }
+</style>

@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import PostCard from '../../components/PostCard.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  const tags = new Set<string>();
+  for (const post of posts) {
+    for (const tag of post.data.tags) {
+      tags.add(tag.toLowerCase().replace(/\s+/g, '-'));
+    }
+  }
+  return [...tags].map((tag) => ({ params: { tag }, props: { tag } }));
+}
+
+const { tag } = Astro.props;
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .filter((post) =>
+    post.data.tags.some((t) => t.toLowerCase().replace(/\s+/g, '-') === tag)
+  )
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const label = tag.replace(/-/g, ' ');
+---
+
+<Layout title={`${label} — Neo Mind Flow`} description={`Articles tagged ${label} on Neo Mind Flow.`}>
+  <main class="container tag-page">
+    <h1 class="tag-title">#{label}</h1>
+    <p class="tag-count">{posts.length} article{posts.length === 1 ? '' : 's'}</p>
+    <div class="post-list">
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+    <p class="back"><a href="/">← Back home</a></p>
+  </main>
+</Layout>
+
+<style>
+  .tag-page {
+    padding-top: 3rem;
+  }
+  .tag-title {
+    font-size: 2rem;
+    text-transform: capitalize;
+    margin-bottom: 0.25rem;
+  }
+  .tag-count {
+    color: var(--color-text-muted);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+  .back {
+    margin-top: 2rem;
+  }
+</style>

@@ -4,8 +4,8 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="About — Neo Mind Flow" description="About Neo Mind Flow — a self-improvement and books blog.">
   <main class="container about">
-    <h1>About Neo Mind Flow</h1>
-    <p>
+    <h1 class="about-title">About Neo Mind Flow</h1>
+    <p class="lead">
       Neo Mind Flow is a space for practical self-improvement: honest book
       recommendations, clear ideas, and tools to help you grow — one step at a time.
     </p>
@@ -13,14 +13,23 @@ import Layout from '../layouts/Layout.astro';
       We read so you can choose better. Every recommendation is grounded in what a
       book actually delivers, who it's for, and when it's worth your time.
     </p>
-    <p><a href="/">← Back home</a></p>
+    <p>
+      <a href="/">← Back home</a>
+    </p>
   </main>
 </Layout>
 
 <style>
   .about {
-    padding-top: 3rem;
+    padding-top: 4rem;
     padding-bottom: 4rem;
-    max-width: 720px;
+  }
+  .about-title {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+  }
+  .lead {
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
   }
 </style>

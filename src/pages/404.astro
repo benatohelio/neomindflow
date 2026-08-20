@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Page not found — Neo Mind Flow" description="The page you're looking for could not be found.">
+  <main class="container notfound">
+    <p class="code">404</p>
+    <h1>Page not found</h1>
+    <p>Sorry, this page doesn't exist. Here are some options:</p>
+    <p><a href="/">← Back to the homepage</a></p>
+  </main>
+</Layout>
+
+<style>
+  .notfound {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    text-align: center;
+  }
+  .code {
+    font-family: var(--font-sans);
+    font-size: 3rem;
+    font-weight: 700;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+  }
+</style>

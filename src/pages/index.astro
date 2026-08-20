@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import PostCard from '../components/PostCard.astro';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -8,62 +9,58 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 ---
 
 <Layout title="Neo Mind Flow — Self Improvement & Books" description="Practical self-improvement guides, honest book recommendations, and personal growth ideas that actually work.">
-  <header class="hero container">
-    <h1>Neo Mind Flow</h1>
-    <p class="tagline">Self-improvement, book recommendations, and ideas to help you think — and live — a little better.</p>
-  </header>
+  <section class="hero">
+    <div class="container hero-inner">
+      <h1 class="hero-title">Think — and live — a little better.</h1>
+      <p class="hero-sub">
+        Honest book recommendations, practical self-improvement guides, and ideas
+        to help you grow, one step at a time.
+      </p>
+    </div>
+  </section>
 
   <main class="container">
-    <ul class="post-list">
-      {posts.map((post) => (
-        <li>
-          <a href={`/blog/${post.id.replace(/^.*\//, '').replace(/\.(md|mdx)$/, '')}/`}>
-            <h2>{post.data.title}</h2>
-            <p>{post.data.description}</p>
-            <time datetime={post.data.pubDate.toISOString()}>
-              {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-            </time>
-          </a>
-        </li>
-      ))}
-    </ul>
+    <div class="section-head">
+      <h2 class="section-title">Latest articles</h2>
+    </div>
+    <div class="post-list">
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
   </main>
 </Layout>
 
 <style>
   .hero {
-    padding-top: 4rem;
-    padding-bottom: 2rem;
+    padding: 4.5rem 0 3rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .hero-inner {
     text-align: center;
   }
-  .hero h1 {
-    font-size: 2.6rem;
-    margin-bottom: 0.5rem;
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
   }
-  .tagline {
-    color: var(--text-muted);
+  .hero-sub {
+    color: var(--color-text-muted);
     max-width: 520px;
     margin: 0 auto;
+    font-size: 1.15rem;
   }
-  .post-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  .section-head {
+    padding: 2.5rem 0 0.5rem;
   }
-  .post-list li {
-    border-top: 1px solid var(--border);
-    padding: 1.5rem 0;
-  }
-  .post-list h2 {
-    margin: 0 0 0.4rem;
-    font-size: 1.4rem;
-  }
-  .post-list p {
-    margin: 0 0 0.4rem;
-    color: var(--text-muted);
-  }
-  .post-list time {
-    font-size: 0.85rem;
-    color: var(--text-muted);
+  .section-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
   }
 </style>

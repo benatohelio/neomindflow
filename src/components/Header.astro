@@ -1,0 +1,80 @@
+---
+const { pathname } = Astro.url;
+const isActive = (path: string) => (pathname.startsWith(path) ? 'active' : '');
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo" href="/" aria-label="Neo Mind Flow — home">
+      <span class="logo-mark">N</span>
+      <span class="logo-text">Neo Mind Flow</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a class={isActive('/blog') || isActive('/') ? 'nav-link active' : 'nav-link'} href="/">Home</a>
+      <a class={`nav-link ${isActive('/about')}`} href="/about/">About</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--color-text);
+  }
+  .logo:hover {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .logo-mark {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    background: var(--gradient);
+    color: #fff;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  .nav {
+    display: flex;
+    gap: 0.25rem;
+  }
+  .nav-link {
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+  }
+  .nav-link:hover {
+    color: var(--color-text);
+    background: var(--color-bg-subtle);
+    text-decoration: none;
+  }
+  .nav-link.active {
+    color: var(--color-primary);
+  }
+</style>
