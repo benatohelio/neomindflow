@@ -14,7 +14,8 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 
 const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://blog.neomindflow.cloud';
-const canonical = new URL(Astro.url.pathname, siteUrl).toString();
+const base = import.meta.env.BASE_URL;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? siteUrl).toString();
 
 const words = post.body?.trim().split(/\s+/).length ?? 0;
 const readingTime = Math.max(1, Math.round(words / 200));
@@ -34,7 +35,7 @@ const slug = (id: string) => id.replace(/^.*\//, '').replace(/\.(md|mdx)$/, '');
         post.data.tags.length > 0 && (
           <div class="post-tags">
             {post.data.tags.map((tag) => (
-              <a class="post-tag" href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}/`}>{tag}</a>
+              <a class="post-tag" href={`${base}tags/${tag.toLowerCase().replace(/\s+/g, '-')}/`}>{tag}</a>
             ))}
           </div>
         )
@@ -66,7 +67,7 @@ const slug = (id: string) => id.replace(/^.*\//, '').replace(/\.(md|mdx)$/, '');
           <ul>
             {related.map((p) => (
               <li>
-                <a href={`/blog/${slug(p.id)}/`}>
+                <a href={`${base}blog/${slug(p.id)}/`}>
                   <span>{p.data.title}</span>
                 </a>
               </li>

@@ -7,9 +7,10 @@ interface Props {
 
 const { post } = Astro.props;
 const slug = post.id.replace(/^.*\//, '').replace(/\.(md|mdx)$/, '');
+const base = import.meta.env.BASE_URL;
 ---
 
-<a class="post-card" href={`/blog/${slug}/`}>
+<a class="post-card" href={`${base}blog/${slug}/`}>
   <article>
     <div class="post-card-meta">
       {

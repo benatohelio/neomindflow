@@ -32,7 +32,7 @@ const label = tag.replace(/-/g, ' ');
     <div class="post-list">
       {posts.map((post) => <PostCard post={post} />)}
     </div>
-    <p class="back"><a href="/">← Back home</a></p>
+    <p class="back"><a href={import.meta.env.BASE_URL}>← Back home</a></p>
   </main>
 </Layout>
 
