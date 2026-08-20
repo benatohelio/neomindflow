@@ -27,7 +27,7 @@ const INK = '#17150F';
 const GREY = '#6B6558';
 const GREEN = '#14532D';
 const BORDER = '#E5E0D8';
-const DOMAIN = process.env.SITE_DOMAIN || 'neomindflow.cloud';
+const DOMAIN = process.env.SITE_DOMAIN || 'blog.neomindflow.cloud';
 const SITE_NAME = 'Neo Mind Flow';
 
 const FONT_DIR = path.join(ROOT, 'scripts', 'fonts');
