@@ -18,7 +18,7 @@ import { AUTHOR } from '../data/author';
     </p>
 
     <section class="author">
-      <div class="author-avatar" aria-hidden="true">{AUTHOR.initials}</div>
+      <img class="author-avatar" src={`${import.meta.env.BASE_URL}icon-512.png`} alt="Neo Mind Flow mark" width="64" height="64" />
       <div class="author-info">
         <h2>{AUTHOR.name}</h2>
         <p class="role">{AUTHOR.role}</p>
@@ -61,16 +61,9 @@ import { AUTHOR } from '../data/author';
     max-width: var(--measure);
   }
   .author-avatar {
-    display: grid;
-    place-items: center;
     width: 64px;
     height: 64px;
     border-radius: 12px;
-    background: var(--color-primary);
-    color: var(--color-bg);
-    font-family: var(--font-sans);
-    font-weight: 600;
-    font-size: 1.1rem;
     flex-shrink: 0;
   }
   .author-info h2 {

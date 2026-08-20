@@ -87,7 +87,7 @@ const postSlug = slug(post.id);
     }
 
     <aside class="author-box">
-      <div class="author-avatar" aria-hidden="true">{AUTHOR.initials}</div>
+      <img class="author-avatar" src={`${base}icon-512.png`} alt="" width="48" height="48" loading="lazy" />
       <div class="author-info">
         <p class="author-name">{post.data.author}</p>
         <p class="author-bio">{AUTHOR.bio}</p>
@@ -248,16 +248,9 @@ const postSlug = slug(post.id);
     border-radius: var(--radius);
   }
   .author-avatar {
-    display: grid;
-    place-items: center;
     width: 48px;
     height: 48px;
     border-radius: 12px;
-    background: var(--color-primary);
-    color: var(--color-bg);
-    font-family: var(--font-sans);
-    font-weight: 600;
-    font-size: 0.9rem;
     flex-shrink: 0;
   }
   .author-info {
