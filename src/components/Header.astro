@@ -8,8 +8,7 @@ const isActive = (path: string) => (pathname.includes(path) ? 'active' : '');
 <header class="site-header">
   <div class="container header-inner">
     <a class="logo" href={home} aria-label="Neo Mind Flow — home">
-      <span class="logo-mark">N</span>
-      <span class="logo-text">Neo Mind Flow</span>
+      Neo Mind Flow<span class="logo-dot">.</span>
     </a>
     <nav class="nav" aria-label="Main navigation">
       <a class={`nav-link ${isActive('/') ? 'active' : ''}`} href={home}>Home</a>
@@ -23,9 +22,7 @@ const isActive = (path: string) => (pathname.includes(path) ? 'active' : '');
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(255, 255, 255, 0.82);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: var(--color-bg);
     border-bottom: 1px solid var(--color-border);
   }
   .header-inner {
@@ -35,29 +32,18 @@ const isActive = (path: string) => (pathname.includes(path) ? 'active' : '');
     height: 64px;
   }
   .logo {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-family: var(--font-sans);
-    font-weight: 700;
-    font-size: 1.15rem;
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.3rem;
+    letter-spacing: -0.01em;
     color: var(--color-text);
   }
   .logo:hover {
     color: var(--color-text);
     text-decoration: none;
   }
-  .logo-mark {
-    display: grid;
-    place-items: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 9px;
-    background: var(--gradient);
-    color: #fff;
-    font-family: var(--font-serif);
-    font-weight: 700;
-    font-size: 1.1rem;
+  .logo-dot {
+    color: var(--color-primary);
   }
   .nav {
     display: flex;
@@ -65,7 +51,7 @@ const isActive = (path: string) => (pathname.includes(path) ? 'active' : '');
   }
   .nav-link {
     font-family: var(--font-sans);
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     font-weight: 500;
     color: var(--color-text-muted);
     padding: 0.4rem 0.8rem;

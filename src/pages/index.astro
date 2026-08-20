@@ -6,61 +6,82 @@ import PostCard from '../components/PostCard.astro';
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+
+const [featured, ...rest] = posts;
 ---
 
 <Layout title="Neo Mind Flow — Self Improvement & Books" description="Practical self-improvement guides, honest book recommendations, and personal growth ideas that actually work.">
   <section class="hero">
     <div class="container hero-inner">
+      <p class="hero-eyebrow">Self-improvement · Books · Ideas</p>
       <h1 class="hero-title">Think — and live — a little better.</h1>
       <p class="hero-sub">
-        Honest book recommendations, practical self-improvement guides, and ideas
-        to help you grow, one step at a time.
+        Honest book recommendations and practical guides to help you grow,
+        one step at a time.
       </p>
     </div>
   </section>
 
   <main class="container">
+    {featured && (
+      <div class="featured">
+        <PostCard post={featured} featured />
+      </div>
+    )}
+
     <div class="section-head">
-      <h2 class="section-title">Latest articles</h2>
+      <h2 class="section-title">Latest</h2>
     </div>
     <div class="post-list">
-      {posts.map((post) => <PostCard post={post} />)}
+      {rest.map((post) => <PostCard post={post} />)}
     </div>
   </main>
 </Layout>
 
 <style>
   .hero {
-    padding: 4.5rem 0 3rem;
+    padding: 4rem 0 2.5rem;
     border-bottom: 1px solid var(--color-border);
   }
   .hero-inner {
-    text-align: center;
+    max-width: 720px;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin: 0 0 0.75rem;
   }
   .hero-title {
     font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    background: var(--gradient);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+    letter-spacing: -0.02em;
     margin-bottom: 1rem;
+    color: var(--color-text);
   }
   .hero-sub {
     color: var(--color-text-muted);
-    max-width: 520px;
-    margin: 0 auto;
-    font-size: 1.15rem;
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  .featured {
+    padding-top: 2rem;
   }
   .section-head {
-    padding: 2.5rem 0 0.5rem;
+    padding: 2.5rem 0 0.25rem;
   }
   .section-title {
-    font-size: 1.05rem;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
     font-weight: 600;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
     color: var(--color-text-muted);
+  }
+  .post-list {
+    display: block;
   }
 </style>
