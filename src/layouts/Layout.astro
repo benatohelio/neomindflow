@@ -15,7 +15,7 @@ const {
   type = 'website',
 } = Astro.props;
 
-const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? 'https://blog.neomindflow.cloud';
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://blog.neomindflow.cloud';
 const canonical = new URL(Astro.url.pathname, siteUrl).toString();
 ---
 
