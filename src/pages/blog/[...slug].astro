@@ -43,6 +43,15 @@ const faqs = faqBlock
       a: m[2].trim().replace(/<[^>]+>/g, '').replace(/\n{2,}/g, ' '),
     }))
   : [];
+
+const books = [...(post.body ?? '').matchAll(/<BookCard\s+asin="([A-Za-z0-9]+)"\s+title="([^"]+)"\s+author="([^"]*)"/g)].map(
+  (m, i) => ({
+    position: i + 1,
+    name: m[2],
+    author: m[3],
+    url: `https://www.amazon.com/dp/${m[1]}?tag=neomindflo-20`,
+  })
+);
 ---
 
 <Layout
@@ -144,6 +153,22 @@ const faqs = faqBlock
           '@type': 'Question',
           name: f.q,
           acceptedAnswer: { '@type': 'Answer', text: f.a },
+        })),
+      })} />
+    )
+  }
+
+  {
+    books.length > 0 && (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        name: post.data.title,
+        itemListElement: books.map((b) => ({
+          '@type': 'ListItem',
+          position: b.position,
+          name: b.name,
+          url: b.url,
         })),
       })} />
     )
