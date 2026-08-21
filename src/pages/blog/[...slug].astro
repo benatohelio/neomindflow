@@ -23,8 +23,13 @@ const readingTime = Math.max(1, Math.round(words / 200));
 
 const related = (await getCollection('blog', ({ data }) => !data.draft))
   .filter((p) => p.id !== post.id)
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
+  .map((p) => ({
+    post: p,
+    score: p.data.tags.filter((t) => post.data.tags.includes(t)).length,
+  }))
+  .sort((a, b) => b.score - a.score || b.post.data.pubDate.valueOf() - a.post.data.pubDate.valueOf())
+  .slice(0, 3)
+  .map((s) => s.post);
 
 const slug = (id: string) => id.replace(/^.*\//, '').replace(/\.(md|mdx)$/, '');
 const postSlug = slug(post.id);

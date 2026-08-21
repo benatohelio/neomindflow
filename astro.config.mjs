@@ -10,5 +10,9 @@ export default defineConfig({
     sitemap({ filter: (page) => !page.includes('/tags/') }),
     mdx(),
   ],
+  redirects: {
+    '/blog/best-personal-development-books/': '/blog/best-self-improvement-books/',
+    '/blog/best-personal-growth-books/': '/blog/best-self-improvement-books/',
+  },
   trailingSlash: 'ignore',
 });
