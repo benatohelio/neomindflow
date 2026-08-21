@@ -55,7 +55,7 @@ const books = [...(post.body ?? '').matchAll(/<BookCard\s+asin="([A-Za-z0-9]+)"\
 ---
 
 <Layout
-  title={`${post.data.title} — Neo Mind Flow`}
+  title={post.data.title}
   description={post.data.description}
   image={post.data.image ?? `covers/${postSlug}-og.png`}
   type="article"

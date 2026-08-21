@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Privacy Policy — Neo Mind Flow" description="How Neo Mind Flow collects, uses, and protects your data.">
+  <main class="container page">
+    <h1>Privacy Policy</h1>
+    <p class="updated"><em>Last updated: August 20, 2026</em></p>
+
+    <p>
+      Neo Mind Flow ("we", "us", "our") operates the website blog.neomindflow.cloud
+      (the "Site"). This page explains what information we collect, how we use it,
+      and the choices you have.
+    </p>
+
+    <h2>Information we collect</h2>
+    <p>
+      We collect limited information automatically when you visit the Site,
+      including your IP address, browser type, device information, pages visited,
+      and time spent on pages. This is standard analytics data used to understand
+      how the Site is used.
+    </p>
+
+    <h2>Analytics</h2>
+    <p>
+      We use <strong>Google Analytics (GA4)</strong> and <strong>Microsoft
+      Clarity</strong> to understand how visitors interact with the Site. These
+      services use cookies and similar technologies to collect anonymized usage
+      data. You can learn more about how these services handle data on their
+      respective privacy pages. You can also block cookies in your browser settings.
+    </p>
+
+    <h2>Affiliate links</h2>
+    <p>
+      Neo Mind Flow is a participant in the Amazon Services LLC Associates Program.
+      When you click a link to Amazon and make a purchase, we may earn a commission
+      at no additional cost to you. These links use a cookie to attribute the
+      referral, which typically expires after 24 hours.
+    </p>
+
+    <h2>How we use your information</h2>
+    <p>
+      We use analytics data solely to improve the Site and understand what content
+      is helpful. We do not sell, rent, or share your personal information with
+      third parties for their own marketing purposes.
+    </p>
+
+    <h2>Cookies</h2>
+    <p>
+      We use cookies only for analytics (as described above) and to remember your
+      theme preference (light or dark mode). You can disable cookies in your browser;
+      the Site will continue to function.
+    </p>
+
+    <h2>Your choices</h2>
+    <p>
+      You can block or delete cookies through your browser settings at any time.
+      You can also opt out of Google Analytics using Google's
+      <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener" target="_blank">opt-out browser add-on</a>.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      If you have questions about this policy, contact us through our
+      <a href={import.meta.env.BASE_URL + 'contact/'}>contact page</a>.
+    </p>
+  </main>
+</Layout>
+
+<style>
+  .page {
+    padding-top: 3rem;
+    padding-bottom: 4rem;
+    max-width: var(--measure);
+  }
+  .page h1 {
+    font-size: 2rem;
+  }
+  .page h2 {
+    margin-top: 2rem;
+    font-size: 1.3rem;
+  }
+  .updated {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+</style>

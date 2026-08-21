@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Affiliate Disclosure — Neo Mind Flow" description="How affiliate links work on Neo Mind Flow.">
+  <main class="container page">
+    <h1>Affiliate Disclosure</h1>
+    <p class="updated"><em>Last updated: August 20, 2026</em></p>
+
+    <p>
+      Neo Mind Flow is reader-supported. When you buy through links on our Site, we
+      may earn an affiliate commission at no additional cost to you.
+    </p>
+
+    <p>
+      <strong>As an Amazon Associate I earn from qualifying purchases.</strong>
+    </p>
+
+    <h2>How it works</h2>
+    <p>
+      Some of the books and products mentioned on the Site contain affiliate links.
+      If you click one of these links and make a purchase, the retailer (for
+      example, Amazon) pays us a small commission. The price you pay is unchanged.
+    </p>
+
+    <h2>Our editorial independence</h2>
+    <p>
+      Affiliate relationships do not influence our recommendations. Books are
+      selected based on their quality, reputation, and usefulness — not on
+      commission rates. When a book is recommended, it is because we believe it
+      earns the recommendation.
+    </p>
+
+    <h2>Identifying affiliate links</h2>
+    <p>
+      Affiliate links on this Site are marked with
+      <code>rel="sponsored nofollow"</code> and open in a new tab. A disclosure
+      notice also appears at the top of articles that contain affiliate links.
+    </p>
+
+    <p>
+      If you have any questions, visit our
+      <a href={import.meta.env.BASE_URL + 'contact/'}>contact page</a>.
+    </p>
+  </main>
+</Layout>
+
+<style>
+  .page {
+    padding-top: 3rem;
+    padding-bottom: 4rem;
+    max-width: var(--measure);
+  }
+  .page h1 {
+    font-size: 2rem;
+  }
+  .page h2 {
+    margin-top: 2rem;
+    font-size: 1.3rem;
+  }
+  .updated {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+  code {
+    font-family: 'SFMono-Regular', Consolas, monospace;
+    font-size: 0.9em;
+    background: var(--color-bg-subtle);
+    padding: 0.1em 0.4em;
+    border-radius: 6px;
+  }
+</style>

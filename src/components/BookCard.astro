@@ -3,10 +3,11 @@ interface Props {
   asin: string;
   title: string;
   author: string;
+  isbn?: string;
 }
 
-const { asin, title, author } = Astro.props;
-const cover = `https://covers.openlibrary.org/b/isbn/${asin}-M.jpg`;
+const { asin, title, author, isbn = asin } = Astro.props;
+const cover = `https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`;
 const link = `https://www.amazon.com/dp/${asin}?tag=neomindflo-20`;
 ---
 

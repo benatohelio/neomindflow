@@ -25,7 +25,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 const label = tag.replace(/-/g, ' ');
 ---
 
-<Layout title={`${label} — Neo Mind Flow`} description={`Articles tagged ${label} on Neo Mind Flow.`}>
+<Layout title={`${label} — Neo Mind Flow`} description={`Articles tagged ${label} on Neo Mind Flow.`} noindex>
   <main class="container tag-page">
     <h1 class="tag-title">#{label}</h1>
     <p class="tag-count">{posts.length} article{posts.length === 1 ? '' : 's'}</p>

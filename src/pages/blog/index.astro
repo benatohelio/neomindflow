@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import PostCard from '../../components/PostCard.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<Layout title="All Articles — Neo Mind Flow" description="Every article on Neo Mind Flow, from newest to oldest.">
+  <main class="container blog-index">
+    <h1 class="blog-title">All articles</h1>
+    <p class="blog-count">{posts.length} article{posts.length === 1 ? '' : 's'}</p>
+    <div class="post-list">
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .blog-index {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  .blog-title {
+    font-size: 2rem;
+    margin-bottom: 0.25rem;
+  }
+  .blog-count {
+    color: var(--color-text-muted);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+</style>

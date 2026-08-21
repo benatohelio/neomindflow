@@ -1,0 +1,49 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Contact — Neo Mind Flow" description="Get in touch with the Neo Mind Flow editorial team.">
+  <main class="container page">
+    <h1>Contact</h1>
+
+    <p>
+      Have a question, a book suggestion, or a correction? We'd love to hear from
+      you. Reach us at:
+    </p>
+
+    <p class="email">
+      <a href="mailto:hello@neomindflow.cloud">hello@neomindflow.cloud</a>
+    </p>
+
+    <h2>What to contact us about</h2>
+    <ul>
+      <li><strong>Book suggestions</strong> — a title we should review or add to a list.</li>
+      <li><strong>Corrections</strong> — something on the Site that's inaccurate or outdated.</li>
+      <li><strong>Partnerships</strong> — collaborations, guest posts, or media inquiries.</li>
+    </ul>
+
+    <p>We typically respond within a few business days.</p>
+  </main>
+</Layout>
+
+<style>
+  .page {
+    padding-top: 3rem;
+    padding-bottom: 4rem;
+    max-width: var(--measure);
+  }
+  .page h1 {
+    font-size: 2rem;
+  }
+  .page h2 {
+    margin-top: 2rem;
+    font-size: 1.3rem;
+  }
+  .email {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  ul {
+    line-height: 1.8;
+  }
+</style>

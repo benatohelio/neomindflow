@@ -3,31 +3,65 @@ import Layout from '../layouts/Layout.astro';
 import { AUTHOR } from '../data/author';
 ---
 
-<Layout title="About — Neo Mind Flow" description="About Neo Mind Flow, an independent editorial publication on self-improvement and books.">
+<Layout title="About — Neo Mind Flow" description="Who we are, how we pick the books we recommend, and how this site is funded.">
   <main class="container about">
     <h1 class="about-title">About Neo Mind Flow</h1>
+
     <p class="lead">
       Neo Mind Flow is an independent editorial publication covering self-improvement,
       personal growth, and the books that actually move the needle.
     </p>
+
+    <h2>What we do</h2>
     <p>
-      We research, compare, and distill the most recommended titles so you can spend
-      less time browsing and more time applying what works. Every recommendation is
-      grounded in what a book actually delivers, who it's for, and when it's worth
-      your time.
+      We research, compare, and summarize the most recommended self-help and personal
+      development books, so you can spend less time browsing and more time applying
+      what works. Every article is built around a simple promise: after reading, you
+      should know exactly which book to pick and why.
     </p>
 
-    <section class="author">
-      <img class="author-avatar" src={`${import.meta.env.BASE_URL}icon-512.png`} alt="Neo Mind Flow mark" width="64" height="64" />
-      <div class="author-info">
-        <h2>{AUTHOR.name}</h2>
-        <p class="role">{AUTHOR.role}</p>
-        <p class="bio">{AUTHOR.bio}</p>
-      </div>
-    </section>
-
+    <h2>Who's behind it</h2>
     <p>
-      <a href={import.meta.env.BASE_URL}>← Back home</a>
+      The Site is produced by the {AUTHOR.name}, with editorial oversight and a
+      consistent review process. We use AI-assisted tools to research and draft
+      content, and every piece is then reviewed against our selection criteria below
+      before it is published. When an article says a book "earns its reputation,"
+      that judgment is based on the criteria below — not on commissions.
+    </p>
+
+    <h2>How we pick the books we recommend</h2>
+    <p>Every book we feature clears three bars:</p>
+    <ul>
+      <li><strong>Actionable</strong> — it gives you something concrete to do, not just concepts.</li>
+      <li><strong>Enduring</strong> — it is still widely recommended years after publication.</li>
+      <li><strong>Specific</strong> — it is written for a particular reader and problem, not everyone.</li>
+    </ul>
+    <p>
+      We also look at a book's honest weaknesses — what it gets wrong, where it has
+      aged, and who it is <em>not</em> for. A list where every book is perfect is not
+      a recommendation; it's an ad.
+    </p>
+
+    <h2>How this site is funded</h2>
+    <p>
+      Neo Mind Flow is reader-supported. When you buy a book through a link on this
+      Site, we may earn a commission from retailers such as Amazon, at no extra cost
+      to you. This does not affect our selections: books are chosen against the
+      criteria above, and the affiliate relationship is disclosed on every page that
+      uses such links. You can read the full details on our
+      <a href={import.meta.env.BASE_URL + 'disclosure/'}>affiliate disclosure</a> page.
+    </p>
+
+    <h2>Your privacy</h2>
+    <p>
+      We collect minimal, anonymized analytics to understand what's helpful. Full
+      details are in our <a href={import.meta.env.BASE_URL + 'privacy/'}>privacy policy</a>.
+    </p>
+
+    <h2>Get in touch</h2>
+    <p>
+      Have a book suggestion, a correction, or a partnership idea? Reach us through
+      the <a href={import.meta.env.BASE_URL + 'contact/'}>contact page</a>.
     </p>
   </main>
 </Layout>
@@ -46,43 +80,14 @@ import { AUTHOR } from '../data/author';
     color: var(--color-text-muted);
     max-width: var(--measure);
   }
-  .about p {
+  .about h2 {
+    margin-top: 2.25rem;
+    font-size: 1.4rem;
+  }
+  .about p, .about ul {
     max-width: var(--measure);
   }
-  .author {
-    margin-top: 2.5rem;
-    display: flex;
-    gap: 1.25rem;
-    align-items: flex-start;
-    padding: 1.75rem;
-    background: var(--color-bg-subtle);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    max-width: var(--measure);
-  }
-  .author-avatar {
-    width: 64px;
-    height: 64px;
-    border-radius: 12px;
-    flex-shrink: 0;
-  }
-  .author-info h2 {
-    font-size: 1.3rem;
-    margin: 0 0 0.2rem;
-  }
-  .role {
-    font-family: var(--font-sans);
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-primary);
-    margin: 0 0 0.5rem;
-  }
-  .bio {
-    font-family: var(--font-sans);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: var(--color-text-muted);
-    margin: 0;
+  .about ul {
+    line-height: 1.8;
   }
 </style>

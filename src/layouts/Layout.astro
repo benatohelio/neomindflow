@@ -9,6 +9,7 @@ interface Props {
   description: string;
   image?: string;
   type?: 'website' | 'article';
+  noindex?: boolean;
 }
 
 const {
@@ -16,6 +17,7 @@ const {
   description,
   image = 'covers/default-og.png',
   type = 'website',
+  noindex = false,
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL;
@@ -44,6 +46,7 @@ const ogImage = /^https?:\/\//.test(image)
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
 
     <!-- Icons -->
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
